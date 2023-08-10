@@ -17,6 +17,7 @@ fetch("mercado.html").then(async (response) => {
 function matchRegex(regex) {
 	const input = inputTextarea.value;
 	const matches = input.match(regex);
+	if (!matches) return (resultTextarea.value = "no matches");
 	resultTextarea.value = matches[0];
 	for (let i = 1; i < matches.length; i++) {
 		resultTextarea.value += `\t\t\t${matches[i]}`;
