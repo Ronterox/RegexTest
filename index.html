@@ -9,23 +9,25 @@
 	<body>
 		<div id="header">
 			<h1>Regex Test</h1>
-            <div id="url-container">
-                <input type="text" id="url-input" placeholder="Enter your url to fetch" />
-                <button id="fetch-button">Fetch data</button>
-            </div>
+			<div id="url-container">
+				<input type="url" id="url-input" placeholder="Url or drop file..." />
+				<button id="fetch-button">Fetch data</button>
+			</div>
 		</div>
 		<div id="container">
 			<div id="result">
-				<span>Result</span>
-				<textarea id="result-textarea" cols="15" rows="5" disabled></textarea>
+				<span>Matches</span> <button class="copy-button">Copy</button>
+				<textarea id="matches-textarea" cols="15" rows="5" disabled></textarea>
+				<span>Groups Captured</span> <button class="copy-button">Copy</button>
+				<textarea id="groups-textarea" cols="15" rows="5" disabled></textarea>
 			</div>
 			<div>
 				<span>Data to Regex</span>
 				<textarea id="input-textarea" cols="30" rows="10"></textarea>
 				<br />
 				<input type="text" id="regex" placeholder="Enter your regex" />
-				<script src="index.js"></script>
 			</div>
 		</div>
+		<script src="index.js"></script>
 	</body>
 </html>
