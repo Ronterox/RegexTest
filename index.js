@@ -7,20 +7,26 @@ const buttonFetch = document.getElementById("fetch-button");
 const showError = (error) => (textareaMatches.value = error);
 
 function matchRegex(regex) {
+	if (!regex) return (textareaMatches.value = textareaGroup.value = "no matches");
+
 	const input = textareaInput.value;
 	const matches = input.matchAll(regex);
 
 	let next = matches.next();
 	textareaMatches.value = textareaGroup.value = next.done ? "no matches" : "";
 
+	let matchesString = "", groupsString = "";
 	while (!next.done) {
 		const match = next.value;
 
-		textareaMatches.value += match[0] + "\n";
-		textareaGroup.value += match[1] + "\n";
+		matchesString += match[0] + "\n";
+		groupsString += (match[1] || "") + "\n";
 
 		next = matches.next();
 	}
+
+	textareaMatches.value += matchesString;
+	textareaGroup.value += groupsString;
 }
 
 for (const button of document.getElementsByClassName("copy-button")) {
