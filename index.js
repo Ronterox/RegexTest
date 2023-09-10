@@ -32,7 +32,7 @@ const regexSymbols = {
 	"*": "any amount of characters",
 };
 
-function matchRegex(regex) {
+function matchRegex(regex = inputRegex.value) {
 	if (!regex) return (textareaMatches.value = textareaGroup.value = "no matches");
 
 	const input = textareaInput.value;
@@ -100,7 +100,7 @@ buttonFetch.addEventListener("click", () => {
 		.then(async (response) => {
 			console.log(response);
 			textareaInput.value = await response.text();
-			matchRegex(inputRegex.value);
+			matchRegex();
 		})
 		.catch(showError)
 		.then(() => (buttonFetch.disabled = false));
@@ -126,10 +126,12 @@ for (const [symbol, description] of Object.entries(regexSymbols)) {
 
 	spanSymbol.addEventListener("mouseover", () => {
 		spanDescription.style.display = "block";
+		matchRegex();
 	});
 
 	spanSymbol.addEventListener("mouseout", () => {
 		spanDescription.style.display = "none";
+		matchRegex();
 	});
 
 	divRegexSymbols.appendChild(div);
