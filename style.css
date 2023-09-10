@@ -94,6 +94,24 @@ input[type="text"] {
 
 input[type="text"],
 textarea {
-	border: 1px solid #ccc;
+	border: 1px solid #cccccc8e;
 	padding: 0.5em;
+}
+
+#regex-symbols {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.symbol {
+	font-size: large;
+	color: #333;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.description {
+	font-size: large;
+	color: #ccc;
+	display: none;
 }

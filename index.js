@@ -5,6 +5,32 @@ const inputUrl = document.getElementById("url-input");
 const inputRegex = document.getElementById("regex");
 const buttonFetch = document.getElementById("fetch-button");
 const showError = (error) => (textareaMatches.value = error);
+const divRegexSymbols = document.getElementById("regex-symbols");
+
+const regexSymbols = {
+	"\\d": "any digit",
+	"\\D": "any non digit character",
+	".": "any character",
+	"\\.": "period",
+	"[abc]": "only a,b or c",
+	"[^abc]": "not a,b, nor c",
+	"[a-z]": "from a to z",
+	"[0-9]": "from	0 to 9",
+	"\\w": "any alphanumeric character",
+	"\\W": "any non alphanumeric character",
+	"\\s": "any whitespace character",
+	"\\S": "any non whitespace character",
+	"\\b": "word boundary",
+	"\\B": "non word boundary",
+	"^": "beginning of string",
+	$: "end of string",
+	"a|b": "match a or b",
+	"(...)": "group",
+	"{m}": "m repetitions of pattern",
+	"{m, n}": "m to n repetitions of pattern",
+	"+": "one or more amount of characters",
+	"*": "any amount of characters",
+};
 
 function matchRegex(regex) {
 	if (!regex) return (textareaMatches.value = textareaGroup.value = "no matches");
@@ -13,9 +39,10 @@ function matchRegex(regex) {
 	const matches = input.matchAll(regex);
 
 	let next = matches.next();
-	textareaMatches.value = textareaGroup.value = next.done ? "no matches" : "";
+	let matchesString = "",
+		groupsString = "";
+	matchesString = groupsString = next.done ? "no matches" : "";
 
-	let matchesString = "", groupsString = "";
 	while (!next.done) {
 		const match = next.value;
 
@@ -25,8 +52,8 @@ function matchRegex(regex) {
 		next = matches.next();
 	}
 
-	textareaMatches.value += matchesString;
-	textareaGroup.value += groupsString;
+	textareaMatches.value = matchesString;
+	textareaGroup.value = groupsString;
 }
 
 for (const button of document.getElementsByClassName("copy-button")) {
@@ -83,3 +110,27 @@ inputRegex.addEventListener("input", (e) => {
 	const regex = e.target.value;
 	matchRegex(regex);
 });
+
+for (const [symbol, description] of Object.entries(regexSymbols)) {
+	const div = document.createElement("div");
+	div.classList.add("regex-symbol");
+	div.innerHTML = `<span class="symbol">${symbol}</span> <span class="description">${description}</span>`;
+
+	const spanSymbol = div.getElementsByClassName("symbol")[0];
+	const spanDescription = div.getElementsByClassName("description")[0];
+
+	spanSymbol.addEventListener("click", () => {
+		inputRegex.value += symbol;
+		inputRegex.focus();
+	});
+
+	spanSymbol.addEventListener("mouseover", () => {
+		spanDescription.style.display = "block";
+	});
+
+	spanSymbol.addEventListener("mouseout", () => {
+		spanDescription.style.display = "none";
+	});
+
+	divRegexSymbols.appendChild(div);
+}
