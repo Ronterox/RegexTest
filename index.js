@@ -87,7 +87,7 @@ document.addEventListener("drop", (e) => {
 	reader.addEventListener("load", () => {
 		textareaInput.value = reader.result;
 		inputUrl.value = file.name + " (Success)";
-		matchRegex(inputRegex.value);
+		matchRegex();
 	});
 	inputUrl.value = file.name;
 	reader.readAsText(file);
